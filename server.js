@@ -18,15 +18,29 @@ async function main() {
     const db = client.db('cse341');
     const contactsCollection = db.collection('contact');
 
-    // Routes
+    //  Root Route
+
+    app.get('/', (req, res) => {
+     res.send('Contacts API is running!');
+   });
+
+   // Get all contacts 
     app.get('/contacts', async (req, res) => {
       const contacts = await contactsCollection.find().toArray();
       res.json(contacts);
     });
-
+    
+    // Get single contact by ID
     app.get('/contacts/:id', async (req, res) => {
+      try {
       const contact = await contactsCollection.findOne({ _id: new ObjectId(req.params.id) });
+      if (!contact) {
+      return res.status(404).json({error: 'Contact not found'});
+      } 
       res.json(contact);
+    } catch (err) {
+      res.status(400).json({ error: 'Invalid ID format'});
+    }
     });
 
     app.listen(port, () => {

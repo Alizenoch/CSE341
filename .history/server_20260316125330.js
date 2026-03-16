@@ -12,11 +12,6 @@ app.use(express.json());
 // Routes
 app.use('/contacts', contactsRoutes);
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to the CSE341 Contacts API');
-});
-
 
 // Connect DB and start server
 connectDB();

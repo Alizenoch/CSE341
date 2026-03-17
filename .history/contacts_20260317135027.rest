@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:3000/api/contacts
+
+### Get all contacts
+GET {{baseUrl}}
+Content-Tyo
